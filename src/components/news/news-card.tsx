@@ -5,6 +5,7 @@ import dayjs from "dayjs"
 import "dayjs/locale/ru"
 import relativeTime from "dayjs/plugin/relativeTime"
 import { useEffect, useState } from "react"
+import { BorderBeam } from "../magicui/border-beam"
 
 dayjs.locale("ru")
 dayjs.extend(relativeTime)
@@ -24,6 +25,7 @@ export default function NewsCard({
   createdAt,
   link,
 }: NewsCardProps) {
+  const [loading, setLoading] = useState(false)
   const [fromNow, setFromNow] = useState(dayjs(createdAt).fromNow())
 
   useEffect(() => {
@@ -35,7 +37,8 @@ export default function NewsCard({
   }, [])
 
   return (
-    <Card className="border-0">
+    <Card className="border-0 relative" onClick={() => setLoading(true)}>
+      {loading && <BorderBeam />}
       {poster ? (
         <Link href={link}>
           <img

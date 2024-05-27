@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import NewsCard from "./news-card"
 import { createClient } from "@/lib/supabase/client"
 import { NEWS_PER_PAGE } from "@/const"
+import { debounce } from "lodash-es"
 
 type NewsListProps = {
   news?: any[] | null
@@ -16,11 +17,11 @@ export default function NewsList({ news }: NewsListProps) {
   const [loading, setLoading] = useState(false)
   const [offset, setOffset] = useState(NEWS_PER_PAGE)
 
-  const fetchMoreNews = async () => {
+  const fetchMoreNews = debounce(async () => {
     setLoading(true)
 
     const res = await fetch(
-      `/api/news?start=${offset}&end=${offset + NEWS_PER_PAGE}`
+      `/api/news?start=${offset + 1}&end=${offset + NEWS_PER_PAGE + 1}`
     )
     const moreNews = await res.json()
 
@@ -33,7 +34,7 @@ export default function NewsList({ news }: NewsListProps) {
     setItems((prevNews) => [...prevNews, ...moreNews])
     setOffset((prevOffset) => prevOffset + NEWS_PER_PAGE)
     setLoading(false)
-  }
+  }, 10)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +50,7 @@ export default function NewsList({ news }: NewsListProps) {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [loading])
+  }, [loading, canLoadMore])
 
   useEffect(() => {
     const supabase = createClient()

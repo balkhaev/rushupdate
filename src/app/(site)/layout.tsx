@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import logo from "../logo.png"
+import SidebarCategories from "@/components/appui/sidebar-categories"
 
 export default async function RootLayout({
   children,
@@ -40,26 +41,7 @@ export default async function RootLayout({
         <div>
           <h3 className="text-lg font-bold mb-2">Категории</h3>
           <div className="space-y-2">
-            {categories?.map((category: any) => (
-              <Link
-                key={category.id}
-                className="flex items-center space-x-2 hover:bg-gray-200 dark:hover:bg-gray-800 p-2 rounded"
-                href={`/category/${category.slug}`}
-              >
-                <img
-                  alt="Channel 1"
-                  className="rounded-full"
-                  height="32"
-                  src={category.poster}
-                  style={{
-                    aspectRatio: "32/32",
-                    objectFit: "cover",
-                  }}
-                  width="32"
-                />
-                <span>{category.name}</span>
-              </Link>
-            ))}
+            {categories && <SidebarCategories categories={categories} />}
           </div>
         </div>
       </div>
