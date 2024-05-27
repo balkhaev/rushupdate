@@ -2,5 +2,5 @@
 
 npm ci
 # mv -f .env.frontend .env
-npm run generate:types
+npx supabase gen types typescript --project-id \"xasnhtflxlvxipgizzqv\" --schema public > types/supabase.ts
 npm run build
