@@ -6,7 +6,7 @@ export async function generateSeoMetadata(slug: string): Promise<Metadata> {
 
   return {
     title: data?.title,
-    keywords: data?.tags.map((tag) => tag.name),
+    keywords: data?.tags.map((tag: any) => tag.name),
     description: data?.description,
 
     openGraph: {
