@@ -4,9 +4,8 @@ import NewsList from "@/components/news/news-list"
 import { Metadata } from "next"
 
 type Props = {
-  params: {
-    slug: string
-  }
+  params: { slug: string }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -35,12 +34,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function TagPage({ params }: Props) {
-  const news = await getNewsByTagSlug(params.slug)
+export default async function TagPage({ params, searchParams }: Props) {
+  const page = parseInt(searchParams?.page?.toString() || "1", 10)
+  const { news, canLoadMore } = await getNewsByTagSlug(params.slug, page)
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-      <NewsList news={news} />
+      <NewsList news={news} canLoadMore={canLoadMore} />
     </div>
   )
 }

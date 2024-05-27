@@ -1,49 +1,58 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import NewsCard from "./news-card"
-import { createClient } from "@/lib/supabase/client"
-import { NEWS_PER_PAGE } from "@/const"
 import { debounce } from "lodash-es"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 type NewsListProps = {
   news?: any[] | null
-  onNext?: (page: number) => void
+  page?: number
+  canLoadMore?: boolean
 }
 
-export default function NewsList({ news }: NewsListProps) {
-  const canLoadMore = useRef(true)
-  const [items, setItems] = useState<any[]>(news ?? [])
+export default function NewsList({
+  news,
+  page = 1,
+  canLoadMore = true,
+}: NewsListProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const [_page, setPage] = useState(page)
   const [loading, setLoading] = useState(false)
-  const [offset, setOffset] = useState(NEWS_PER_PAGE + 1)
+
+  const createQueryString = useCallback(
+    (name: string, value: string | number) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value.toString())
+
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   const fetchMoreNews = debounce(async () => {
     setLoading(true)
-
-    const res = await fetch(
-      `/api/news?start=${offset}&end=${offset + NEWS_PER_PAGE}`
-    )
-    const moreNews = await res.json()
-
-    if ("loadMore" in moreNews) {
-      canLoadMore.current = moreNews.loadMore
-      setLoading(false)
-      return
-    }
-
-    setItems((prevNews) => [...prevNews, ...moreNews])
-    setOffset((prevOffset) => prevOffset + NEWS_PER_PAGE + 1)
-    setLoading(false)
-  }, 10)
+    setPage((prev) => {
+      const nextPage = prev + 1
+      router.push(pathname + "?" + createQueryString("page", nextPage), {
+        scroll: false,
+      })
+      return nextPage
+    })
+    setInterval(() => setLoading(false), 2000)
+  }, 100)
 
   useEffect(() => {
     const handleScroll = () => {
       if (
-        canLoadMore.current &&
+        canLoadMore &&
         window.innerHeight + window.scrollY >=
           document.body.offsetHeight - 500 &&
         !loading
       ) {
+        console.log("fetchMoreNews")
         fetchMoreNews()
       }
     }
@@ -52,32 +61,13 @@ export default function NewsList({ news }: NewsListProps) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [loading, canLoadMore])
 
-  useEffect(() => {
-    const supabase = createClient()
-
-    const channel = supabase
-      .channel("custom-all-channel")
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "news" },
-        (payload) => {
-          setItems((prevItem) => [payload.new, ...prevItem])
-        }
-      )
-      .subscribe()
-
-    return () => {
-      channel.unsubscribe()
-    }
-  }, [])
-
   if (!news || news.length === 0) {
     return null
   }
 
   return (
     <>
-      {items.map((item) => (
+      {news.map((item) => (
         <NewsCard
           key={item.id}
           createdAt={item.created_at}
@@ -87,7 +77,6 @@ export default function NewsList({ news }: NewsListProps) {
           link={`/${item.slug}`}
         />
       ))}
-      {loading && <p>Загрузка новостей...</p>}
     </>
   )
 }
