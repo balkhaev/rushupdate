@@ -13,18 +13,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = await getTagBySlug(params.slug)
 
   return {
-    title: `Новости по теме - ${data.name}`,
-    keywords: [data.name, "новости", "горячие новости", "актуальные новости"],
-    description: `Новости о ${data.name}, самые актуальные и горячие новости`,
+    title: `Новости по теме - ${data?.name}`,
+    keywords: [
+      data?.name || "",
+      "новости",
+      "горячие новости",
+      "актуальные новости",
+    ],
+    description: `Новости о ${data?.name}, самые актуальные и горячие новости`,
 
     openGraph: {
-      title: data.name,
-      description: `Новости о ${data.name}, самые актуальные и горячие новости`,
+      title: data?.name,
+      description: `Новости о ${data?.name}, самые актуальные и горячие новости`,
       url: "https://rushupdate.com/tag/" + params.slug,
     },
     twitter: {
-      title: data.name,
-      description: `Новости о ${data.name}, самые актуальные и горячие новости`,
+      title: data?.name,
+      description: `Новости о ${data?.name}, самые актуальные и горячие новости`,
       site: "https://rushupdate.com/tag/",
     },
   }

@@ -1,4 +1,5 @@
 import { getNewsBySlug } from "@/api/news"
+import { generateSeoMetadata } from "@/lib/seo"
 import { Metadata } from "next"
 
 const isDev = process.env.NODE_ENV === "development"
@@ -8,26 +9,7 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const data = await getNewsBySlug(params.slug)
-
-  return {
-    title: data.title,
-    keywords: data.tags,
-    description: data.description,
-
-    openGraph: {
-      title: data.title,
-      description: data.description,
-      url: "https://rushupdate.com/" + params.slug,
-      images: data.originalPoster,
-    },
-    twitter: {
-      title: data.title,
-      description: data.description,
-      site: "https://rushupdate.com/",
-      images: data.originalPoster,
-    },
-  }
+  return generateSeoMetadata(params.slug)
 }
 
 export default async function NewsItemPage({ params }: Props) {
@@ -61,7 +43,7 @@ export default async function NewsItemPage({ params }: Props) {
           <p className="text-gray-500 dark:text-gray-400">{data.description}</p>
         </div>
         <div className="prose prose-stone dark:prose-invert whitespace-pre-line">
-          {data.content.replace(/\\/g, "")}
+          {data.content?.replace(/\\/g, "")}
         </div>
       </div>
       {isDev && (

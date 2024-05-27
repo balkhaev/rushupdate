@@ -7,7 +7,8 @@
     "generate:table": "npx @usebasejump/cli@latest generate table",
     "deploy:setup": "pm2 deploy production setup",
     "deploy": "pm2 deploy production",
-    "pm2:prod": "pm2 startOrRestart ecosystem.config.js --env production"
+    "pm2:prod": "pm2 startOrRestart ecosystem.config.js --env production",
+    "generate:types": "npx supabase gen types typescript --project-id \"xasnhtflxlvxipgizzqv\" --schema public > types/supabase.ts"
   },
   "dependencies": {
     "@next/third-parties": "^14.2.3",

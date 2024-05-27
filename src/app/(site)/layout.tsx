@@ -26,7 +26,7 @@ export default async function RootLayout({
           </Link>
           <h3 className="text-lg font-bold mb-2">Популярные теги за 24ч</h3>
           <div className="flex flex-wrap gap-2">
-            {data.map((tag: any) => (
+            {data?.map((tag: any) => (
               <Link href={`/tag/${tag.slug}`} key={tag.id}>
                 <Badge
                   className="hover:bg-gray-200 dark:hover:bg-gray-800 capitalize"

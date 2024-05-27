@@ -15,13 +15,13 @@ export default function NewsList({ news }: NewsListProps) {
   const canLoadMore = useRef(true)
   const [items, setItems] = useState<any[]>(news ?? [])
   const [loading, setLoading] = useState(false)
-  const [offset, setOffset] = useState(NEWS_PER_PAGE)
+  const [offset, setOffset] = useState(NEWS_PER_PAGE + 1)
 
   const fetchMoreNews = debounce(async () => {
     setLoading(true)
 
     const res = await fetch(
-      `/api/news?start=${offset + 1}&end=${offset + NEWS_PER_PAGE + 1}`
+      `/api/news?start=${offset}&end=${offset + NEWS_PER_PAGE}`
     )
     const moreNews = await res.json()
 
@@ -32,7 +32,7 @@ export default function NewsList({ news }: NewsListProps) {
     }
 
     setItems((prevNews) => [...prevNews, ...moreNews])
-    setOffset((prevOffset) => prevOffset + NEWS_PER_PAGE)
+    setOffset((prevOffset) => prevOffset + NEWS_PER_PAGE + 1)
     setLoading(false)
   }, 10)
 
@@ -59,7 +59,7 @@ export default function NewsList({ news }: NewsListProps) {
       .channel("custom-all-channel")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "news" },
+        { event: "INSERT", schema: "public", table: "news" },
         (payload) => {
           setItems((prevItem) => [payload.new, ...prevItem])
         }

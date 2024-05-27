@@ -17,7 +17,7 @@ export async function getNewsBySlug(slug: string) {
   const supabase = createClient()
   const { data } = await supabase
     .from("news")
-    .select()
+    .select("*, tags(name)")
     .eq("slug", slug)
     .single()
 
