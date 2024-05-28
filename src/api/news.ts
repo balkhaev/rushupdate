@@ -1,10 +1,18 @@
 import { NEWS_PER_PAGE } from "@/const"
 import { createClient } from "@/lib/supabase/server"
 
-const getPagination = (page: number, size = NEWS_PER_PAGE) => {
+const getPagination = (page: number, size = NEWS_PER_PAGE, maxLimit = 200) => {
   const index = page - 1
   const from = index * size
   const to = from + size - 1
+  const diff = to - from
+
+  if (diff > maxLimit) {
+    return {
+      from: from + maxLimit,
+      to: to - maxLimit,
+    }
+  }
 
   return { from, to }
 }
