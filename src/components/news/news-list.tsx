@@ -95,7 +95,7 @@ export default function NewsList({
           <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
           <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
           <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
-          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted lg:block xl:hidden 2xl:block" />
         </div>
       )}
     </>
