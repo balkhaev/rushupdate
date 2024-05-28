@@ -66,7 +66,7 @@ export default function NewsList({
   }
 
   return (
-    <>
+    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
       {news.map((item) => (
         <NewsCard
           key={item.id}
@@ -77,6 +77,6 @@ export default function NewsList({
           link={`/${item.slug}`}
         />
       ))}
-    </>
+    </div>
   )
 }
