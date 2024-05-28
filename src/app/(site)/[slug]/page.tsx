@@ -45,7 +45,7 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
           <div className="space-y-4 border-l pl-6 dark:border-gray-800">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                {data.originalTitle}
+                {data.original_title}
               </h1>
             </div>
             <div className="prose prose-stone dark:prose-invert whitespace-pre-line">

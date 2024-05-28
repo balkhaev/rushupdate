@@ -40,10 +40,10 @@ export type Database = {
           created_at: string
           description: string | null
           id: number
+          original_title: string | null
           originalContent: string | null
           originalLink: string | null
           originalPoster: string | null
-          originalTitle: string | null
           slug: string | null
           title: string | null
         }
@@ -53,10 +53,10 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: number
+          original_title?: string | null
           originalContent?: string | null
           originalLink?: string | null
           originalPoster?: string | null
-          originalTitle?: string | null
           slug?: string | null
           title?: string | null
         }
@@ -66,10 +66,10 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: number
+          original_title?: string | null
           originalContent?: string | null
           originalLink?: string | null
           originalPoster?: string | null
-          originalTitle?: string | null
           slug?: string | null
           title?: string | null
         }
@@ -271,6 +271,24 @@ export type Database = {
           name: string
           poster: string | null
           slug: string | null
+        }[]
+      }
+      search_news_by_original_title: {
+        Args: {
+          search_text: string
+        }
+        Returns: {
+          category_id: number | null
+          content: string | null
+          created_at: string
+          description: string | null
+          id: number
+          original_title: string | null
+          originalContent: string | null
+          originalLink: string | null
+          originalPoster: string | null
+          slug: string | null
+          title: string | null
         }[]
       }
       search_tag_by_name: {
