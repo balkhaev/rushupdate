@@ -25,7 +25,7 @@ export function SidebarCategoriesBase({ items, defaultOpened }: Props) {
         onClick={() => setIsCollapsibleOpen(!isCollapsibleOpen)}
       >
         <h3 className="text-lg font-bold mb-2">Категории</h3>{" "}
-        {isCollapsibleOpen ? <ChevronDown /> : <ChevronUp />}
+        {isCollapsibleOpen ? <ChevronUp /> : <ChevronDown />}
       </CollapsibleTrigger>
       <CollapsibleContent>
         <div className="space-y-2">
