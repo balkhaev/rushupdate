@@ -1,50 +1,42 @@
 import { NEWS_PER_PAGE } from "@/const"
 import { createClient } from "@/lib/supabase/server"
 
-const getPagination = (page: number, size = NEWS_PER_PAGE, maxLimit = 200) => {
+const getPagination = (page: number, size = NEWS_PER_PAGE) => {
   const index = page - 1
   const from = index * size
   const to = from + size - 1
-  const diff = to - from
-
-  if (diff > maxLimit) {
-    return {
-      from: from + maxLimit,
-      to: to - maxLimit,
-    }
-  }
 
   return { from, to }
 }
 
 export async function getNews(page = 1) {
-  const { to } = getPagination(page)
+  const { from, to } = getPagination(page)
   const supabase = createClient()
 
   const { data: news, error } = await supabase
     .from("news")
     .select()
-    .range(0, to)
+    .range(from, to)
     .order("created_at", { ascending: false })
 
-  return { news, canLoadMore: !news || news.length > to }
+  return { news, canLoadMore: !news || news.length + from > to }
 }
 
 export async function getNewsBySlug(slug: string, page = 1) {
-  const { to } = getPagination(page)
+  const { from, to } = getPagination(page)
   const supabase = createClient()
   const { data } = await supabase
     .from("news")
     .select("*, tags(name)")
     .eq("slug", slug)
-    .range(0, to)
+    .range(from, to)
     .single()
 
   return data
 }
 
 export async function getNewsByCategorySlug(categorySlug: string, page = 1) {
-  const { to } = getPagination(page)
+  const { from, to } = getPagination(page)
   const supabase = createClient()
   const { data: categoryData, error: categoryError } = await supabase
     .from("categories")
@@ -62,7 +54,7 @@ export async function getNewsByCategorySlug(categorySlug: string, page = 1) {
     .from("news")
     .select("*")
     .eq("category_id", categoryData.id)
-    .range(0, to)
+    .range(from, to)
     .order("created_at", { ascending: false })
 
   if (newsError) {
@@ -70,11 +62,11 @@ export async function getNewsByCategorySlug(categorySlug: string, page = 1) {
     return { news: [], canLoadMore: false }
   }
 
-  return { news, canLoadMore: !news || news.length > to }
+  return { news, canLoadMore: !news || news.length + from > to }
 }
 
 export async function getNewsByTagSlug(tagSlug: string, page = 1) {
-  const { to } = getPagination(page)
+  const { from, to } = getPagination(page)
   const supabase = createClient()
 
   const { data: tagData, error: tagError } = await supabase
@@ -112,7 +104,7 @@ export async function getNewsByTagSlug(tagSlug: string, page = 1) {
     .from("news")
     .select("*")
     .in("id", newsIds)
-    .range(0, to)
+    .range(from, to)
     .order("created_at", { ascending: false })
 
   if (newsError) {
@@ -120,5 +112,5 @@ export async function getNewsByTagSlug(tagSlug: string, page = 1) {
     return { news: [], canLoadMore: false }
   }
 
-  return { news, canLoadMore: !news || news.length > to }
+  return { news, canLoadMore: !news || news.length + from > to }
 }

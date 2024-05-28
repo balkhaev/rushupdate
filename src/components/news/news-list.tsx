@@ -19,6 +19,7 @@ export default function NewsList({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [items, setItems] = useState(news)
   const [_page, setPage] = useState(page)
   const [loading, setLoading] = useState(false)
 
@@ -41,10 +42,11 @@ export default function NewsList({
       })
       return nextPage
     })
-    setInterval(() => setLoading(false), 2000)
-  }, 100)
+    setInterval(() => setLoading(false), 3000)
+  }, 200)
 
   useEffect(() => {
+    console.log({ canLoadMore })
     const handleScroll = () => {
       if (
         canLoadMore &&
@@ -52,7 +54,6 @@ export default function NewsList({
           document.body.offsetHeight - 500 &&
         !loading
       ) {
-        console.log("fetchMoreNews")
         fetchMoreNews()
       }
     }
@@ -61,13 +62,23 @@ export default function NewsList({
     return () => window.removeEventListener("scroll", handleScroll)
   }, [loading, canLoadMore])
 
-  if (!news || news.length === 0) {
+  useEffect(() => {
+    if (!items || !news) {
+      return
+    }
+
+    if (items[0].title !== news[0].title) {
+      setItems([...items, ...news])
+    }
+  }, [news])
+
+  if (!items || items.length === 0) {
     return null
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-      {news.map((item) => (
+      {items.map((item) => (
         <NewsCard
           key={item.id}
           createdAt={item.created_at}
