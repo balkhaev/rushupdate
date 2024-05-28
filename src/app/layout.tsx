@@ -15,6 +15,7 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Последние актуальные новости",
   description: "Читайте самые актуальные новости на текущий день",
+  "yandex-verification": "5ed3239700237518",
 }
 
 export default function RootLayout({
