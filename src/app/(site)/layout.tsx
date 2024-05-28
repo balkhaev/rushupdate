@@ -2,9 +2,9 @@ import "../globals.css"
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
-import logo from "../logo.png"
 import dynamic from "next/dynamic"
 import SidebarCategories from "@/components/appui/sidebar/categories"
+import SiteLogo from "@/components/appui/logo"
 
 const NowDate = dynamic(() => import("@/components/appui/current-date"), {
   ssr: false,
@@ -26,9 +26,7 @@ export default async function RootLayout({
     <main className="flex flex-col md:flex-row">
       <div className="p-4 space-y-4 md:w-72 md:border-l">
         <div>
-          <Link href="/" className="mb-4 flex flex-col justify-center">
-            <img src={logo.src} />
-          </Link>
+          <SiteLogo />
           <div className="mb-4 text-center text-gray-500 h-7">
             <NowDate />
           </div>
