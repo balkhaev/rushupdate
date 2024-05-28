@@ -33,6 +33,27 @@ export type Database = {
         }
         Relationships: []
       }
+      comments: {
+        Row: {
+          content: string | null
+          created_at: string
+          creator: string | null
+          id: number
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          creator?: string | null
+          id?: number
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          creator?: string | null
+          id?: number
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           category_id: number | null
@@ -40,11 +61,12 @@ export type Database = {
           created_at: string
           description: string | null
           id: number
+          original_link: string
           original_title: string | null
           originalContent: string | null
-          originalLink: string | null
           originalPoster: string | null
           slug: string | null
+          status: Database["public"]["Enums"]["news_status"]
           thumbnail: string | null
           title: string | null
         }
@@ -54,11 +76,12 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: number
+          original_link: string
           original_title?: string | null
           originalContent?: string | null
-          originalLink?: string | null
           originalPoster?: string | null
           slug?: string | null
+          status?: Database["public"]["Enums"]["news_status"]
           thumbnail?: string | null
           title?: string | null
         }
@@ -68,11 +91,12 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: number
+          original_link?: string
           original_title?: string | null
           originalContent?: string | null
-          originalLink?: string | null
           originalPoster?: string | null
           slug?: string | null
+          status?: Database["public"]["Enums"]["news_status"]
           thumbnail?: string | null
           title?: string | null
         }
@@ -82,6 +106,42 @@ export type Database = {
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      news_comments: {
+        Row: {
+          comment_id: number
+          created_at: string
+          id: number
+          news_id: number
+        }
+        Insert: {
+          comment_id: number
+          created_at?: string
+          id?: number
+          news_id: number
+        }
+        Update: {
+          comment_id?: number
+          created_at?: string
+          id?: number
+          news_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "news_comments_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "news_comments_news_id_fkey"
+            columns: ["news_id"]
+            isOneToOne: false
+            referencedRelation: "news"
             referencedColumns: ["id"]
           },
         ]
@@ -286,11 +346,12 @@ export type Database = {
           created_at: string
           description: string | null
           id: number
+          original_link: string
           original_title: string | null
           originalContent: string | null
-          originalLink: string | null
           originalPoster: string | null
           slug: string | null
+          status: Database["public"]["Enums"]["news_status"]
           thumbnail: string | null
           title: string | null
         }[]
@@ -347,7 +408,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      news_status: "published" | "created" | "parsed"
     }
     CompositeTypes: {
       [_ in never]: never

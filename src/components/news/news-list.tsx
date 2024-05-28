@@ -46,7 +46,6 @@ export default function NewsList({
   }, 200)
 
   useEffect(() => {
-    console.log({ canLoadMore })
     const handleScroll = () => {
       if (
         canLoadMore &&
@@ -63,7 +62,7 @@ export default function NewsList({
   }, [loading, canLoadMore])
 
   useEffect(() => {
-    if (!items || !news) {
+    if (!items || !news || news.length === 0) {
       return
     }
 
@@ -77,18 +76,28 @@ export default function NewsList({
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-      {items.map((item) => (
-        <NewsCard
-          key={item.id}
-          createdAt={item.created_at}
-          title={item.title}
-          description={item.description}
-          poster={item.originalPoster}
-          thumbnail={item.thumbnail}
-          link={`/${item.slug}`}
-        />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+        {items.map((item) => (
+          <NewsCard
+            key={item.id}
+            createdAt={item.created_at}
+            title={item.title}
+            description={item.description}
+            poster={item.originalPoster}
+            thumbnail={item.thumbnail}
+            link={`/${item.slug}`}
+          />
+        ))}
+      </div>
+      {loading && (
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+        </div>
+      )}
+    </>
   )
 }
