@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import logo from "../logo.png"
-import SidebarCategories from "@/components/appui/sidebar-categories"
+import SidebarCategories from "@/components/appui/sidebar/categories"
 
 export default async function RootLayout({
   children,
@@ -21,7 +21,7 @@ export default async function RootLayout({
     <main className="flex flex-col md:flex-row">
       <div className="p-4 space-y-4 md:w-72 md:border-l">
         <div>
-          <Link href="/" className="mb-6 block">
+          <Link href="/" className="mb-6 flex justify-center">
             <img src={logo.src} />
           </Link>
           <h3 className="text-lg font-bold mb-2">Популярные теги за 24ч</h3>
@@ -38,12 +38,7 @@ export default async function RootLayout({
             ))}
           </div>
         </div>
-        <div>
-          <h3 className="text-lg font-bold mb-2">Категории</h3>
-          <div className="space-y-2">
-            {categories && <SidebarCategories categories={categories} />}
-          </div>
-        </div>
+        {categories && <SidebarCategories items={categories} />}
       </div>
       <div className="flex-1 p-4 space-y-4">{children}</div>
     </main>

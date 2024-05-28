@@ -113,6 +113,7 @@ export async function getNewsByTagSlug(tagSlug: string, page = 1) {
     .select("*")
     .in("id", newsIds)
     .range(0, to)
+    .order("created_at", { ascending: false })
 
   if (newsError) {
     console.error("Error fetching news data:", newsError)

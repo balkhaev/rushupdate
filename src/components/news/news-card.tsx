@@ -39,8 +39,8 @@ export default function NewsCard({
   return (
     <Card className="border-0 relative" onClick={() => setLoading(true)}>
       {loading && <BorderBeam />}
-      {poster ? (
-        <Link href={link}>
+      <Link href={link}>
+        {poster ? (
           <img
             alt={`Изображение к новости "${title}"`}
             className="rounded-t-md object-cover"
@@ -51,10 +51,10 @@ export default function NewsCard({
             }}
             width="100%"
           />
-        </Link>
-      ) : (
-        <div style={{ aspectRatio: "16/7" }}></div>
-      )}
+        ) : (
+          <div style={{ aspectRatio: "16/7" }}></div>
+        )}
+      </Link>
       <CardContent className="p-4 space-y-2">
         <Link href={link}>
           <h3 className="text-lg font-bold">{title}</h3>
