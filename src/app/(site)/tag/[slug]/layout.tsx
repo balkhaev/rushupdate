@@ -1,12 +1,7 @@
 import { Metadata } from "next"
 import { getTagBySlug } from "@/api/tags"
 
-type Props = {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: any): Promise<Metadata> {
   const data = await getTagBySlug(params.slug)
 
   return {

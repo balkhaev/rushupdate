@@ -1,12 +1,7 @@
 import { Metadata } from "next"
 import { generateSeoMetadata } from "@/lib/seo"
 
-type Props = {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: any): Promise<Metadata> {
   return generateSeoMetadata(params.slug)
 }
 

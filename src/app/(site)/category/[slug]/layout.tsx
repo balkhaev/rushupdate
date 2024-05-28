@@ -1,12 +1,7 @@
 import { getCategoryBySlug } from "@/api/category"
 import { Metadata } from "next"
 
-type Props = {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: any): Promise<Metadata> {
   const data = await getCategoryBySlug(params.slug)
 
   return {
