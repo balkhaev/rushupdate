@@ -42,7 +42,7 @@ export default function NewsList({
       })
       return nextPage
     })
-    setInterval(() => setLoading(false), 4000)
+    setInterval(() => setLoading(false), 3000)
   }, 150)
 
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function NewsList({
           />
         ))}
       </div>
-      {loading && (
+      {canLoadMore && (
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
           <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
           <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
