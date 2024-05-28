@@ -45,6 +45,7 @@ export type Database = {
           originalLink: string | null
           originalPoster: string | null
           slug: string | null
+          thumbnail: string | null
           title: string | null
         }
         Insert: {
@@ -58,6 +59,7 @@ export type Database = {
           originalLink?: string | null
           originalPoster?: string | null
           slug?: string | null
+          thumbnail?: string | null
           title?: string | null
         }
         Update: {
@@ -71,6 +73,7 @@ export type Database = {
           originalLink?: string | null
           originalPoster?: string | null
           slug?: string | null
+          thumbnail?: string | null
           title?: string | null
         }
         Relationships: [
@@ -288,6 +291,7 @@ export type Database = {
           originalLink: string | null
           originalPoster: string | null
           slug: string | null
+          thumbnail: string | null
           title: string | null
         }[]
       }

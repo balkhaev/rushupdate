@@ -14,6 +14,7 @@ type NewsCardProps = {
   title: string
   description: string
   link: string
+  thumbnail?: string
   poster?: string
   createdAt: string
 }
@@ -21,12 +22,14 @@ type NewsCardProps = {
 export default function NewsCard({
   title,
   poster,
+  thumbnail,
   description,
   createdAt,
   link,
 }: NewsCardProps) {
   const [loading, setLoading] = useState(false)
   const [fromNow, setFromNow] = useState(dayjs(createdAt).fromNow())
+  const srcUrl = thumbnail ?? poster
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,11 +43,11 @@ export default function NewsCard({
     <Card className="border-0 relative">
       {loading && <BorderBeam />}
       <Link href={link} onClick={() => setLoading(true)}>
-        {poster ? (
+        {srcUrl ? (
           <img
             alt={`Изображение к новости "${title}"`}
             className="rounded-t-md object-cover"
-            src={poster}
+            src={srcUrl}
             style={{
               aspectRatio: "16/7",
               objectFit: "cover",
