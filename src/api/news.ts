@@ -16,6 +16,7 @@ export async function getNews(page = 1) {
   const { data: news, error } = await supabase
     .from("news")
     .select()
+    .eq("status", "published")
     .range(from, to)
     .order("created_at", { ascending: false })
 
@@ -29,6 +30,7 @@ export async function getNewsBySlug(slug: string, page = 1) {
     .from("news")
     .select("*, tags(name)")
     .eq("slug", slug)
+    .eq("status", "published")
     .range(from, to)
     .single()
 
@@ -54,6 +56,7 @@ export async function getNewsByCategorySlug(categorySlug: string, page = 1) {
     .from("news")
     .select("*")
     .eq("category_id", categoryData.id)
+    .eq("status", "published")
     .range(from, to)
     .order("created_at", { ascending: false })
 
@@ -104,6 +107,7 @@ export async function getNewsByTagSlug(tagSlug: string, page = 1) {
     .from("news")
     .select("*")
     .in("id", newsIds)
+    .eq("status", "published")
     .range(from, to)
     .order("created_at", { ascending: false })
 
