@@ -4,7 +4,11 @@ import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import logo from "../logo.png"
 import SidebarCategories from "@/components/appui/sidebar/categories"
-import NowDate from "@/components/appui/current-date"
+import dynamic from "next/dynamic"
+
+const NowDate = dynamic(() => import("@/components/appui/current-date"), {
+  ssr: false,
+})
 
 export default async function RootLayout({
   children,
