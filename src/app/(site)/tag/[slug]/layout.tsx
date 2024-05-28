@@ -1,10 +1,12 @@
 import { Metadata } from "next"
 import { getTagBySlug } from "@/api/tags"
-import { TagPageProps } from "./page"
 
-export async function generateMetadata({
-  params,
-}: TagPageProps): Promise<Metadata> {
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = await getTagBySlug(params.slug)
 
   return {

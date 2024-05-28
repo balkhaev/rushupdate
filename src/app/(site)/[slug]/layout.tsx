@@ -1,10 +1,12 @@
 import { Metadata } from "next"
-import { NewsItemPageProps } from "./page"
 import { generateSeoMetadata } from "@/lib/seo"
 
-export async function generateMetadata({
-  params,
-}: NewsItemPageProps): Promise<Metadata> {
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return generateSeoMetadata(params.slug)
 }
 
