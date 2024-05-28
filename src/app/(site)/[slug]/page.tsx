@@ -1,18 +1,12 @@
 import { getNewsBySlug } from "@/api/news"
-import { generateSeoMetadata } from "@/lib/seo"
-import { Metadata } from "next"
 
 const isDev = process.env.NODE_ENV === "development"
 
-type Props = {
+export type NewsItemPageProps = {
   params: { slug: string }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return generateSeoMetadata(params.slug)
-}
-
-export default async function NewsItemPage({ params }: Props) {
+export default async function NewsItemPage({ params }: NewsItemPageProps) {
   const data = await getNewsBySlug(params.slug)
 
   if (!data) {
