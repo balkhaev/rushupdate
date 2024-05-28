@@ -37,9 +37,9 @@ export default function NewsCard({
   }, [])
 
   return (
-    <Card className="border-0 relative" onClick={() => setLoading(true)}>
+    <Card className="border-0 relative">
       {loading && <BorderBeam />}
-      <Link href={link}>
+      <Link href={link} onClick={() => setLoading(true)}>
         {poster ? (
           <img
             alt={`Изображение к новости "${title}"`}
@@ -56,12 +56,16 @@ export default function NewsCard({
         )}
       </Link>
       <CardContent className="p-4 space-y-2">
-        <Link href={link}>
+        <Link href={link} onClick={() => setLoading(true)}>
           <h3 className="text-lg font-bold">{title}</h3>
         </Link>
         <p className="text-gray-500 line-clamp-2">{description}</p>
         <div className="flex justify-between">
-          <Link className="text-blue-500 hover:underline" href={link}>
+          <Link
+            className="text-blue-500 hover:underline"
+            href={link}
+            onClick={() => setLoading(true)}
+          >
             Читать далее
           </Link>
           <div className="text-gray-500">{fromNow}</div>
