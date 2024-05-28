@@ -1,7 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  siteUrl: process.env.SITE_URL || "https://rushupdate.com",
-  generateRobotsTxt: true, // (optional)
-}
+const nextConfig = {}
 
-module.exports = nextConfig
+export default nextConfig
