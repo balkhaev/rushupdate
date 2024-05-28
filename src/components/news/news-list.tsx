@@ -42,7 +42,7 @@ export default function NewsList({
       })
       return nextPage
     })
-    setInterval(() => setLoading(false), 3000)
+    setInterval(() => setLoading(false), 1000)
   }, 150)
 
   useEffect(() => {
