@@ -14,6 +14,11 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@corex/deepmerge@^4.0.43":
+  version "4.0.43"
+  resolved "https://registry.npmjs.org/@corex/deepmerge/-/deepmerge-4.0.43.tgz"
+  integrity sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==
+
 "@floating-ui/core@^1.0.0":
   version "1.6.2"
   resolved "https://registry.npmjs.org/@floating-ui/core/-/core-1.6.2.tgz"
@@ -84,6 +89,11 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
+
+"@next/env@^13.4.3":
+  version "13.5.6"
+  resolved "https://registry.npmjs.org/@next/env/-/env-13.5.6.tgz"
+  integrity sha512-Yac/bV5sBGkkEXmAX5FWPS9Mmo2rthrOPRQQNfycJPkjUAUclomCPH7QFVCDQ4Mp2k2K1SSM6m0zrxYrOwtFQw==
 
 "@next/env@14.2.3":
   version "14.2.3"
@@ -1319,7 +1329,7 @@ extrareqp2@^1.0.0:
   dependencies:
     follow-redirects "^1.14.0"
 
-fast-glob@^3.3.0:
+fast-glob@^3.2.12, fast-glob@^3.3.0:
   version "3.3.2"
   resolved "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.2.tgz"
   integrity sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==
@@ -1690,6 +1700,11 @@ minimatch@^9.0.4:
   dependencies:
     brace-expansion "^2.0.1"
 
+minimist@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz"
+  integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
+
 "minipass@^5.0.0 || ^6.0.2 || ^7.0.0", minipass@^7.1.2:
   version "7.1.2"
   resolved "https://registry.npmjs.org/minipass/-/minipass-7.1.2.tgz"
@@ -1743,12 +1758,22 @@ netmask@^2.0.2:
   resolved "https://registry.npmjs.org/netmask/-/netmask-2.0.2.tgz"
   integrity sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==
 
+next-sitemap@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/next-sitemap/-/next-sitemap-4.2.3.tgz"
+  integrity sha512-vjdCxeDuWDzldhCnyFCQipw5bfpl4HmZA7uoo3GAaYGjGgfL4Cxb1CiztPuWGmS+auYs7/8OekRS8C2cjdAsjQ==
+  dependencies:
+    "@corex/deepmerge" "^4.0.43"
+    "@next/env" "^13.4.3"
+    fast-glob "^3.2.12"
+    minimist "^1.2.8"
+
 next-themes@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/next-themes/-/next-themes-0.3.0.tgz"
   integrity sha512-/QHIrsYpd6Kfk7xakK4svpDI5mmXP0gfvCoJdGpZQ2TOrQZmsW0QxjaiLn8wbIKjtm4BTSqLoix4lxYYOnLJ/w==
 
-"next@^13.0.0 || ^14.0.0", "next@>=13.2.0 <15.0.0-0", next@latest:
+next@*, "next@^13.0.0 || ^14.0.0", "next@>=13.2.0 <15.0.0-0", next@latest:
   version "14.2.3"
   resolved "https://registry.npmjs.org/next/-/next-14.2.3.tgz"
   integrity sha512-dowFkFTR8v79NPJO4QsBUtxv0g9BrS/phluVpMAt2ku7H+cbcBJlopXjkWlwxrk/xGqMemr7JkGPGemPrLLX7A==
