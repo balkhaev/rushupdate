@@ -26,10 +26,6 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
                 alt={`Изображение к новости "${data.title}"`}
                 className="rounded-t-md object-cover"
                 src={data.originalPoster}
-                style={{
-                  aspectRatio: "16/7",
-                  objectFit: "cover",
-                }}
                 width="100%"
               />
             </div>
