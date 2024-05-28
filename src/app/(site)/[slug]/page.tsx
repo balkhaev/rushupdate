@@ -24,7 +24,7 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
             <div className="py-4">
               <img
                 alt={`Изображение к новости "${data.title}"`}
-                className="rounded-t-md object-cover"
+                className="rounded-t-md object-cover min-h-96"
                 src={data.originalPoster}
                 width="100%"
               />
