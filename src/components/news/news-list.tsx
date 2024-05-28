@@ -42,8 +42,8 @@ export default function NewsList({
       })
       return nextPage
     })
-    setInterval(() => setLoading(false), 3000)
-  }, 200)
+    setInterval(() => setLoading(false), 4000)
+  }, 150)
 
   useEffect(() => {
     const handleScroll = () => {
