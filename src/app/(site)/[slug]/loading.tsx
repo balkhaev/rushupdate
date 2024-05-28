@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function Loading() {
+export default function NewsItemLoading() {
   return (
     <div className="flex-1 space-y-6">
       <Skeleton className="h-[150px] w-full rounded-xl" />
