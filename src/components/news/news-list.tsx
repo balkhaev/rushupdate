@@ -74,6 +74,7 @@ export default function NewsList({
           title={item.title}
           description={item.description}
           poster={item.originalPoster}
+          thumbnail={item.thumbnail}
           link={`/${item.slug}`}
         />
       ))}
