@@ -123,9 +123,11 @@ export async function getSimilarNews(newsId?: number) {
     return []
   }
   const supabase = createClient()
-  const { data } = await supabase.rpc("find_similar_news", {
-    current_news_id: newsId,
-  })
+  const { data } = await supabase
+    .rpc("find_similar_news", {
+      current_news_id: newsId,
+    })
+    .order("created_at", { ascending: false })
 
   return data
 }
