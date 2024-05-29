@@ -54,7 +54,7 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
             ))}
           </div>
           {newsItem.originalPoster && (
-            <div className="py-4">
+            <div className="pt-4">
               <NewsImage
                 alt={`Изображение к новости "${newsItem.title}"`}
                 className="rounded-t-md object-cover"
@@ -64,7 +64,7 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
               />
             </div>
           )}
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-500 dark:text-gray-400 pt-4">
             {newsItem.description}
           </p>
         </div>
