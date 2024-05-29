@@ -33,7 +33,7 @@ export default function CommentsForm({ comments, onCommentCreate }: Props) {
 
   return (
     <>
-      <div className="p-6">
+      <div className="p-6 pt-0">
         <h2 className="text-2xl font-bold mb-4">Оставить комментарий</h2>
         <form
           ref={ref}
