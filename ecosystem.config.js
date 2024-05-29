@@ -11,11 +11,6 @@ module.exports = {
         PORT: 8000,
       },
     },
-    {
-      name: "ru-cron",
-      cron_restart: "0 0 * * *",
-      script: "app.js",
-    },
   ],
 
   deploy: {
