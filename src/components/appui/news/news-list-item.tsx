@@ -40,7 +40,7 @@ export default function NewsListItem({ news }: NewsCardProps) {
             className="rounded-t-md object-cover"
             src={srcUrl}
             style={{
-              aspectRatio: "1/1",
+              aspectRatio: "1.2/1",
               objectFit: "cover",
             }}
             width="100%"
@@ -51,10 +51,10 @@ export default function NewsListItem({ news }: NewsCardProps) {
       </Link>
       <CardContent className="flex-1 px-4 space-y-2">
         <Link href={link} onClick={() => setLoading(true)}>
-          <h3 className="text-lg font-bold">{news.title}</h3>
+          <h3 className="font-bold text-base">{news.title}</h3>
         </Link>
-        <p className="text-gray-500 line-clamp-2">{news.description}</p>
-        <div className="flex justify-between">
+        <p className="text-gray-500 line-clamp-3 text-sm">{news.description}</p>
+        <div className="flex justify-between text-sm">
           <Link
             className="text-blue-500 hover:underline"
             href={link}

@@ -7,10 +7,10 @@ type Props = {
 
 export default function NewsList({ news }: Props) {
   return (
-    <>
+    <div className="space-y-2">
       {news.map((news) => (
         <NewsListItem key={news.id} news={news} />
       ))}
-    </>
+    </div>
   )
 }
