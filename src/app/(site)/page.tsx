@@ -1,5 +1,5 @@
 import { getNews } from "@/api/news"
-import NewsList from "@/components/appui/news/news-list"
+import NewsGrid from "@/components/appui/news/news-grid"
 
 type Props = {
   searchParams?: { [key: string]: string | string[] | undefined }
@@ -9,5 +9,5 @@ export default async function NewsPage({ searchParams }: Props) {
   const page = parseInt(searchParams?.page?.toString() || "1", 10)
   const { news, canLoadMore } = await getNews(page)
 
-  return <NewsList page={page} news={news} canLoadMore={canLoadMore} />
+  return <NewsGrid page={page} news={news} canLoadMore={canLoadMore} />
 }

@@ -117,3 +117,15 @@ export async function getNewsByTagSlug(tagSlug: string, page = 1) {
 
   return { news, canLoadMore: !news || news.length + from > to }
 }
+
+export async function getSimilarNews(newsId?: number) {
+  if (!newsId) {
+    return []
+  }
+  const supabase = createClient()
+  const { data } = await supabase.rpc("find_similar_news", {
+    current_news_id: newsId,
+  })
+
+  return data
+}

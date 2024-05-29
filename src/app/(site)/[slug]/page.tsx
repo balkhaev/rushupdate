@@ -1,10 +1,13 @@
 import { createComment } from "@/api/comments"
-import { getNewsBySlug } from "@/api/news"
+import { getNewsBySlug, getSimilarNews } from "@/api/news"
 import CommentsForm from "@/components/appui/comments/comments-form"
 import NewsImage from "@/components/appui/news/news-image"
+import NewsList from "@/components/appui/news/news-list"
+import Taxonomy from "@/components/appui/taxonomy"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link"
+import { Tables } from "../../../../types/supabase"
 
 const isDev = process.env.NODE_ENV === "development"
 
@@ -14,12 +17,13 @@ export type NewsItemPageProps = {
 
 export default async function NewsItemPage({ params }: NewsItemPageProps) {
   const newsItem = await getNewsBySlug(params.slug)
+  const similarNews = await getSimilarNews(newsItem?.id)
 
   if (!newsItem) {
     return "not found :("
   }
 
-  async function onCommentCreate(prevState: any, formData: FormData) {
+  async function onCommentCreate(_prevState: any, formData: FormData) {
     "use server"
 
     const name = formData.get("name")
@@ -40,18 +44,10 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
             {newsItem.title}
           </h1>
           <div className="flex gap-1 flex-wrap">
-            {/* @ts-ignore */}
-            <Link href={`/category/${newsItem.category_id.slug}`}>
-              {/* @ts-ignore */}
-              <Badge>{newsItem.category_id.name}</Badge>
-            </Link>
-            {newsItem.tags.map((tag) => (
-              <Link href={`/tag/${tag.slug}`} key={tag.id}>
-                <Badge variant="outline" className="whitespace-nowrap">
-                  {tag.name}
-                </Badge>
-              </Link>
-            ))}
+            <Taxonomy
+              category={newsItem.category_id as unknown as Tables<"categories">}
+              tags={newsItem.tags}
+            />
           </div>
           {newsItem.originalPoster && (
             <div className="pt-4">
@@ -71,13 +67,15 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
         <div className="prose prose-stone dark:prose-invert whitespace-pre-line">
           {newsItem.content?.replace(/\\/g, "")}
         </div>
+        <hr className="border-gray-200 dark:border-gray-800" />
+        <CommentsForm
+          comments={newsItem.comments}
+          onCommentCreate={onCommentCreate}
+        />
       </div>
       <div className="flex-1 space-y-6">
-        <div className="border-l dark:border-gray-800">
-          <CommentsForm
-            comments={newsItem.comments}
-            onCommentCreate={onCommentCreate}
-          />
+        <div className="border-l dark:border-gray-800 pl-4">
+          {similarNews && <NewsList news={similarNews} />}
         </div>
       </div>
       {isDev && (

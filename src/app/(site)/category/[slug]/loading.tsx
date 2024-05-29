@@ -1,5 +1,5 @@
-import NewsListSkeleton from "@/components/appui/news/news-list-skeleton"
+import NewsGridSkeleton from "@/components/appui/news/news-list-skeleton"
 
 export default function CategoryLoading() {
-  return <NewsListSkeleton />
+  return <NewsGridSkeleton />
 }

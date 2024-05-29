@@ -247,6 +247,27 @@ export type Database = {
         }
         Returns: undefined
       }
+      find_similar_news: {
+        Args: {
+          current_news_id: number
+          limit_count?: number
+        }
+        Returns: {
+          category_id: number | null
+          content: string | null
+          created_at: string
+          description: string | null
+          id: number
+          original_link: string
+          original_title: string | null
+          originalContent: string | null
+          originalPoster: string | null
+          slug: string | null
+          status: Database["public"]["Enums"]["news_status"]
+          thumbnail: string | null
+          title: string | null
+        }[]
+      }
       generate_slug: {
         Args: {
           title: string

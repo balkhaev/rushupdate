@@ -1,5 +1,5 @@
 import { getNewsByCategorySlug } from "@/api/news"
-import NewsList from "@/components/appui/news/news-list"
+import NewsGrid from "@/components/appui/news/news-grid"
 
 export type CategoryPageProps = {
   params: { slug: string }
@@ -13,5 +13,5 @@ export default async function CategoryPage({
   const page = parseInt(searchParams?.page?.toString() || "1", 10)
   const { news, canLoadMore } = await getNewsByCategorySlug(params.slug, page)
 
-  return <NewsList news={news} canLoadMore={canLoadMore} />
+  return <NewsGrid news={news} canLoadMore={canLoadMore} />
 }

@@ -33,7 +33,7 @@ export default function CommentsForm({ comments, onCommentCreate }: Props) {
 
   return (
     <>
-      <div className="p-6 pt-0">
+      <div className="pt-0">
         <h2 className="text-2xl font-bold mb-4">Оставить комментарий</h2>
         <form
           ref={ref}
@@ -74,18 +74,14 @@ export default function CommentsForm({ comments, onCommentCreate }: Props) {
             />
           </div>
           <div className="flex justify-end">
-            <Button
-              disabled={pending}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              type="submit"
-            >
+            <Button disabled={pending} variant="secondary" type="submit">
               Отправить
             </Button>
           </div>
         </form>
       </div>
       {items.length > 0 && (
-        <div className="p-6 mt-8">
+        <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">Комментарии</h2>
           <div className="space-y-4">
             {items.map((comment) => (
