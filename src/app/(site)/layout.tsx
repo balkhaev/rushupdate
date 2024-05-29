@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import dynamic from "next/dynamic"
 import SidebarCategories from "@/components/appui/sidebar/categories"
 import SiteLogo from "@/components/appui/logo"
+import SidebarTags from "@/components/appui/sidebar/tags"
 
 const NowDate = dynamic(() => import("@/components/appui/current-date"), {
   ssr: false,
@@ -33,18 +34,11 @@ export default async function RootLayout({
             </div>
 
             <h3 className="text-lg font-bold mb-2">Популярные теги за 24ч</h3>
-            <div className="flex flex-wrap gap-2">
-              {data?.map((tag: any) => (
-                <Link href={`/tag/${tag.slug}`} key={tag.id}>
-                  <Badge
-                    className="hover:bg-gray-200 dark:hover:bg-gray-800 capitalize"
-                    variant="secondary"
-                  >
-                    {tag.name}
-                  </Badge>
-                </Link>
-              ))}
-            </div>
+            {data && (
+              <div className="flex flex-wrap gap-2">
+                <SidebarTags tags={data} />
+              </div>
+            )}
           </div>
           {categories && <SidebarCategories items={categories} />}
         </div>
