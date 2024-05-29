@@ -84,19 +84,21 @@ export default function CommentsForm({ comments, onCommentCreate }: Props) {
           </div>
         </form>
       </div>
-      <div className="p-6 mt-8">
-        <h2 className="text-2xl font-bold mb-4">Комментарии</h2>
-        <div className="space-y-4">
-          {items.map((comment) => (
-            <CommentsItem
-              key={comment.id}
-              content={comment.content}
-              createdAt={comment.created_at}
-              creatorName={comment.creator_name}
-            />
-          ))}
+      {items.length > 0 && (
+        <div className="p-6 mt-8">
+          <h2 className="text-2xl font-bold mb-4">Комментарии</h2>
+          <div className="space-y-4">
+            {items.map((comment) => (
+              <CommentsItem
+                key={comment.id}
+                content={comment.content}
+                createdAt={comment.created_at}
+                creatorName={comment.creator_name}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   )
 }
