@@ -17,7 +17,11 @@ export default function CommentsItem({
     <div className="flex items-start">
       <div className="flex-shrink-0 mr-4">
         <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-400 font-bold">
-          JD
+          {creatorName
+            .split(" ")
+            .slice(0, 2)
+            .map((c) => c[0])
+            .join("")}
         </div>
       </div>
       <div>
