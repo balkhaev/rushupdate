@@ -6,5 +6,5 @@ dayjs.locale("ru")
 dayjs.extend(relativeTime)
 
 export function timeFromNow(time: ConfigType) {
-  return dayjs(time).fromNow()
+  return dayjs(time).subtract(50, "seconds").fromNow()
 }
