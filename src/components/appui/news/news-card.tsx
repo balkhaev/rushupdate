@@ -1,14 +1,9 @@
 import { CardContent, Card } from "@/components/ui/card"
 import Link from "next/link"
-import dayjs from "dayjs"
 
-import "dayjs/locale/ru"
-import relativeTime from "dayjs/plugin/relativeTime"
 import { useEffect, useState } from "react"
-import { BorderBeam } from "../magicui/border-beam"
-
-dayjs.locale("ru")
-dayjs.extend(relativeTime)
+import { BorderBeam } from "../../magicui/border-beam"
+import { timeFromNow } from "@/components/utils/date"
 
 type NewsCardProps = {
   title: string
@@ -28,12 +23,12 @@ export default function NewsCard({
   link,
 }: NewsCardProps) {
   const [loading, setLoading] = useState(false)
-  const [fromNow, setFromNow] = useState(dayjs(createdAt).fromNow())
+  const [fromNow, setFromNow] = useState(timeFromNow(createdAt))
   const srcUrl = thumbnail ?? poster
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFromNow(dayjs(createdAt).fromNow())
+      setFromNow(timeFromNow(createdAt))
     }, 10000)
 
     return () => clearInterval(interval)

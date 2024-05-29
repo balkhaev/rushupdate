@@ -1,5 +1,5 @@
 import { getNews } from "@/api/news"
-import NewsList from "@/components/news/news-list"
+import NewsList from "@/components/appui/news/news-list"
 
 type Props = {
   searchParams?: { [key: string]: string | string[] | undefined }

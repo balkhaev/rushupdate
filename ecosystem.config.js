@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "bbc-frontend",
+      name: "ru-frontend",
       script: "node_modules/next/dist/bin/next",
       args: "start",
       exec_mode: "cluster",
@@ -10,6 +10,11 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 8000,
       },
+    },
+    {
+      name: "ru-cron",
+      cron_restart: "0 0 * * *",
+      script: "app.js",
     },
   ],
 

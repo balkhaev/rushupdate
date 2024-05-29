@@ -1,5 +1,5 @@
 import { getNewsByTagSlug } from "@/api/news"
-import NewsList from "@/components/news/news-list"
+import NewsList from "@/components/appui/news/news-list"
 
 export type TagPageProps = {
   params: { slug: string }

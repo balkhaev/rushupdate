@@ -1,5 +1,5 @@
 import { getNewsByCategorySlug } from "@/api/news"
-import NewsList from "@/components/news/news-list"
+import NewsList from "@/components/appui/news/news-list"
 
 export type CategoryPageProps = {
   params: { slug: string }

@@ -35,21 +35,21 @@ export type Database = {
       }
       comments: {
         Row: {
-          content: string | null
+          content: string
           created_at: string
-          creator: string | null
+          creator_name: string
           id: number
         }
         Insert: {
-          content?: string | null
+          content: string
           created_at?: string
-          creator?: string | null
+          creator_name: string
           id?: number
         }
         Update: {
-          content?: string | null
+          content?: string
           created_at?: string
-          creator?: string | null
+          creator_name?: string
           id?: number
         }
         Relationships: []

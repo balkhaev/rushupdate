@@ -23,15 +23,14 @@ export async function getNews(page = 1) {
   return { news, canLoadMore: !news || news.length + from > to }
 }
 
-export async function getNewsBySlug(slug: string, page = 1) {
-  const { from, to } = getPagination(page)
+export async function getNewsBySlug(slug: string) {
   const supabase = createClient()
   const { data } = await supabase
     .from("news")
-    .select("*, tags(name)")
+    .select("*, tags(*), category_id(*), comments(*)")
     .eq("slug", slug)
     .eq("status", "published")
-    .range(from, to)
+    .order("created_at", { referencedTable: "comments", ascending: false })
     .single()
 
   return data
