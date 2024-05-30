@@ -11,6 +11,8 @@ import {
 import placeholderImage from "./image.png"
 
 type Props = {
+  absolute?: boolean
+  aspectRatio?: string
   style?: CSSProperties
   className?: string
   width?: string
@@ -21,6 +23,8 @@ type Props = {
 }
 
 export default function NewsImage({
+  absolute,
+  aspectRatio,
   className,
   loading,
   onLoad,
@@ -41,15 +45,21 @@ export default function NewsImage({
   }, [])
 
   return (
-    <>
+    <div className={cn(absolute && "relative")} style={{ aspectRatio }}>
       <img
-        className={cn(className, !isImageReady && "hidden")}
+        className={cn(
+          "object-cover w-full",
+          className,
+          !isImageReady && "hidden",
+          absolute && "absolute"
+        )}
         ref={imageRef}
         onLoad={onLoadCallBack}
         src={haveImage ? src : placeholderImage.src}
+        style={{ aspectRatio }}
         {...props}
       />
       {!isImageReady && loading}
-    </>
+    </div>
   )
 }

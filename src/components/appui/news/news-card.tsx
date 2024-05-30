@@ -41,15 +41,13 @@ export default function NewsCard({ news }: NewsCardProps) {
       {loading && <BorderBeam />}
       <Link href={link} onClick={() => setLoading(true)}>
         <NewsImage
+          absolute
           src={srcUrl}
           alt={`Изображение к новости "${news.title}"`}
           className="rounded-t-md object-cover"
-          style={{
-            aspectRatio: "16/7",
-            objectFit: "cover",
-          }}
+          aspectRatio="16/7"
           width="100%"
-          loading={<Skeleton className="h-[350px] w-full" />}
+          loading={<Skeleton style={{ aspectRatio: "16/7" }} />}
         />
       </Link>
       <CardContent className="p-4 space-y-2">
