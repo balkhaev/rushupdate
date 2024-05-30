@@ -8,6 +8,7 @@ import { BorderBeam } from "../../magicui/border-beam"
 import { timeFromNow } from "@/components/utils/date"
 import { Tables } from "../../../../types/supabase"
 import Taxonomy from "../taxonomy"
+import NewsImage from "./news-image"
 
 type NewsCardProps = {
   news: Tables<"news"> & {
@@ -34,20 +35,16 @@ export default function NewsListItem({ news }: NewsCardProps) {
     <Card className="border-0 relative flex">
       {loading && <BorderBeam />}
       <Link className="w-[150px]" href={link} onClick={() => setLoading(true)}>
-        {srcUrl ? (
-          <img
-            alt={`Изображение к новости "${news.title}"`}
-            className="rounded-t-md object-cover"
-            src={srcUrl}
-            style={{
-              aspectRatio: "1.2/1",
-              objectFit: "cover",
-            }}
-            width="100%"
-          />
-        ) : (
-          <div style={{ aspectRatio: "16/7" }}></div>
-        )}
+        <NewsImage
+          alt={`Изображение к новости "${news.title}"`}
+          className="rounded-t-md object-cover"
+          src={srcUrl}
+          style={{
+            aspectRatio: "1.2/1",
+            objectFit: "cover",
+          }}
+          width="100%"
+        />
       </Link>
       <CardContent className="flex-1 px-4 space-y-2">
         <Link href={link} onClick={() => setLoading(true)}>

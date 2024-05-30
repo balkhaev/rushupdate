@@ -24,12 +24,12 @@ export default function NewsImage({
   className,
   loading,
   onLoad,
-  style,
   src,
   ...props
 }: Props) {
   const imageRef = useRef<HTMLImageElement | null>(null)
   const [isImageReady, setIsImageReady] = useState(true)
+  const haveImage = typeof src === "string"
 
   const onLoadCallBack = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     setIsImageReady(true)
@@ -43,12 +43,11 @@ export default function NewsImage({
   return (
     <>
       <img
-        className={cn(className, isImageReady ? "block" : "hidden")}
+        className={cn(className, !isImageReady && "hidden")}
         ref={imageRef}
         onLoad={onLoadCallBack}
-        src={src || placeholderImage.src}
+        src={haveImage ? src : placeholderImage.src}
         {...props}
-        style={{ padding: "0 20px", ...style }}
       />
       {!isImageReady && loading}
     </>
