@@ -7,6 +7,16 @@ import { useEffect, useState } from "react"
 import { BorderBeam } from "../../magicui/border-beam"
 import { timeFromNow } from "@/components/utils/date"
 import { Tables } from "../../../../types/supabase"
+import NewsImage from "./news-image"
+import { Skeleton } from "@/components/ui/skeleton"
+import dynamic from "next/dynamic"
+
+const NewsCardTime = dynamic(
+  () => import("@/components/appui/news/news-card-time"),
+  {
+    ssr: false,
+  }
+)
 
 type NewsCardProps = {
   news: Tables<"news">
@@ -30,20 +40,17 @@ export default function NewsCard({ news }: NewsCardProps) {
     <Card className="border-0 relative">
       {loading && <BorderBeam />}
       <Link href={link} onClick={() => setLoading(true)}>
-        {srcUrl ? (
-          <img
-            alt={`Изображение к новости "${news.title}"`}
-            className="rounded-t-md object-cover"
-            src={srcUrl}
-            style={{
-              aspectRatio: "16/7",
-              objectFit: "cover",
-            }}
-            width="100%"
-          />
-        ) : (
-          <div style={{ aspectRatio: "16/7" }}></div>
-        )}
+        <NewsImage
+          src={srcUrl}
+          alt={`Изображение к новости "${news.title}"`}
+          className="rounded-t-md object-cover"
+          style={{
+            aspectRatio: "16/7",
+            objectFit: "cover",
+          }}
+          width="100%"
+          loading={<Skeleton className="h-[350px] w-full" />}
+        />
       </Link>
       <CardContent className="p-4 space-y-2">
         <Link href={link} onClick={() => setLoading(true)}>
@@ -58,7 +65,7 @@ export default function NewsCard({ news }: NewsCardProps) {
           >
             Читать далее
           </Link>
-          <div className="text-gray-500">{fromNow}</div>
+          <NewsCardTime fromNow={fromNow} />
         </div>
       </CardContent>
     </Card>

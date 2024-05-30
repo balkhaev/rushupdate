@@ -1,11 +1,20 @@
 "use client"
 import { cn } from "@/lib/utils"
-import { ReactNode, SyntheticEvent, useEffect, useRef, useState } from "react"
+import {
+  CSSProperties,
+  ReactNode,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import placeholderImage from "./image.png"
 
 type Props = {
+  style?: CSSProperties
   className?: string
   width?: string
-  src: string
+  src?: string | null
   loading?: ReactNode
   alt?: string
   onLoad?: (e: SyntheticEvent<HTMLImageElement, Event>) => void
@@ -15,6 +24,8 @@ export default function NewsImage({
   className,
   loading,
   onLoad,
+  style,
+  src,
   ...props
 }: Props) {
   const imageRef = useRef<HTMLImageElement | null>(null)
@@ -35,7 +46,9 @@ export default function NewsImage({
         className={cn(className, isImageReady ? "block" : "hidden")}
         ref={imageRef}
         onLoad={onLoadCallBack}
+        src={src || placeholderImage.src}
         {...props}
+        style={{ padding: "0 20px", ...style }}
       />
       {!isImageReady && loading}
     </>
