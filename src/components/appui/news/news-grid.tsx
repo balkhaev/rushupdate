@@ -4,17 +4,21 @@ import { useCallback, useEffect, useState } from "react"
 import NewsCard from "./news-card"
 import { debounce } from "lodash-es"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { usePrevious } from "@/hooks/use-previous"
 
 type NewsGridProps = {
   news?: any[] | null
   page?: number
   canLoadMore?: boolean
+  canLoadPrev?: boolean
 }
 
 export default function NewsGrid({
   news,
   page = 1,
   canLoadMore = true,
+  canLoadPrev = false,
 }: NewsGridProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -22,6 +26,8 @@ export default function NewsGrid({
   const [items, setItems] = useState(news)
   const [_page, setPage] = useState(page)
   const [loading, setLoading] = useState(false)
+  const prevPage = usePrevious<number>(page)
+  const showPrevLoad = canLoadPrev && !prevPage
 
   const createQueryString = useCallback(
     (name: string, value: string | number) => {
@@ -67,9 +73,19 @@ export default function NewsGrid({
     }
 
     if (items[0].title !== news[0].title) {
-      setItems([...items, ...news])
+      if (!prevPage) {
+        setItems([...items, ...news])
+      } else {
+        if (page > prevPage) {
+          console.log("dont here")
+          setItems([...items, ...news])
+        } else {
+          console.log("here")
+          setItems([...news, ...items])
+        }
+      }
     }
-  }, [news])
+  }, [news, page])
 
   if (!items || items.length === 0) {
     return null
@@ -77,6 +93,19 @@ export default function NewsGrid({
 
   return (
     <>
+      {showPrevLoad && (
+        <Button
+          className="w-full"
+          onClick={() => {
+            router.push(pathname + "?" + createQueryString("page", 1), {
+              scroll: false,
+            })
+          }}
+          variant="outline"
+        >
+          Загрузить предыдущие новости (вы находитесь на {page} странице)
+        </Button>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
         {items.map((item) => (
           <NewsCard key={item.id} news={item} />

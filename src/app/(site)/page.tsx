@@ -9,5 +9,12 @@ export default async function NewsPage({ searchParams }: Props) {
   const page = parseInt(searchParams?.page?.toString() || "1", 10)
   const { news, canLoadMore } = await getNews(page)
 
-  return <NewsGrid page={page} news={news} canLoadMore={canLoadMore} />
+  return (
+    <NewsGrid
+      page={page}
+      news={news}
+      canLoadPrev={page !== 1}
+      canLoadMore={canLoadMore}
+    />
+  )
 }
