@@ -9,7 +9,7 @@ export default function SiteLogo() {
   return (
     <Link
       href="/"
-      className="mb-4 flex flex-col justify-center"
+      className="mb-4 flex flex-col justify-center h-[255px]"
       onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()
