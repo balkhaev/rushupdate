@@ -7,6 +7,8 @@ type Props = {
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
+export const dynamic = "force-dynamic"
+
 export default async function NewsPage({ searchParams }: Props) {
   const page = parseInt(searchParams?.page?.toString() || "1", 10)
   const { news, canLoadMore } = await getNews(page)
