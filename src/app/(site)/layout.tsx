@@ -24,7 +24,7 @@ export default async function RootLayout({
   return (
     <>
       <main className="flex flex-col md:flex-row">
-        <div className="p-4 space-y-4 md:min-w-72 md:border-l">
+        <div className="p-4 space-y-4 md:min-w-72 md:max-w-72 md:border-l">
           <div>
             <SiteLogo />
             <div className="mb-4 text-center text-gray-500 h-7">
