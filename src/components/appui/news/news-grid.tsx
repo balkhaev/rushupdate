@@ -24,7 +24,6 @@ export default function NewsGrid({
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [items, setItems] = useState(news)
-  const [_page, setPage] = useState(page)
   const [loading, setLoading] = useState(false)
   const prevPage = usePrevious<number>(page)
   const [showPrevLoad, setShowPrevLoad] = useState(false)
@@ -41,13 +40,13 @@ export default function NewsGrid({
 
   const fetchMoreNews = debounce(async () => {
     setLoading(true)
-    setPage((prev) => {
-      const nextPage = prev + 1
+    ;(() => {
+      const nextPage = page + 1
       router.push(pathname + "?" + createQueryString("page", nextPage), {
         scroll: false,
       })
       return nextPage
-    })
+    })()
     setInterval(() => setLoading(false), 1000)
   }, 150)
 
