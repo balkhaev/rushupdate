@@ -40,7 +40,7 @@ export default async function RootLayout({
           </div>
           {categories && <SidebarCategories items={categories} />}
         </div>
-        <div className="flex-1 p-4 space-y-4 flex flex-col overflow-hidden">
+        <div className="flex-1 p-4 space-y-5 flex flex-col overflow-hidden">
           {children}
         </div>
       </main>

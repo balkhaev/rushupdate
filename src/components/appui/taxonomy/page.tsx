@@ -24,12 +24,12 @@ export default function TaxonomyPage({
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           <span className="capitalize">{title}</span>
         </h1>
+        {relatedTags && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            <TagsList tags={relatedTags} />
+          </div>
+        )}
       </div>
-      {relatedTags && (
-        <div className="flex flex-wrap gap-2">
-          <TagsList tags={relatedTags} />
-        </div>
-      )}
       <NewsGrid
         page={page}
         news={news}
