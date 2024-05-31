@@ -131,3 +131,12 @@ export async function getSimilarNews(newsId?: number) {
 
   return data
 }
+
+export async function getTopNewsByTags() {
+  const supabase = createClient()
+  const { data } = await supabase
+    .rpc("get_top_news_by_tags")
+    .order("created_at", { ascending: false })
+
+  return data
+}

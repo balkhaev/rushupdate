@@ -60,6 +60,7 @@ export type Database = {
           content: string | null
           created_at: string
           description: string | null
+          featured: boolean | null
           id: number
           original_link: string
           original_title: string | null
@@ -75,6 +76,7 @@ export type Database = {
           content?: string | null
           created_at?: string
           description?: string | null
+          featured?: boolean | null
           id?: number
           original_link: string
           original_title?: string | null
@@ -90,6 +92,7 @@ export type Database = {
           content?: string | null
           created_at?: string
           description?: string | null
+          featured?: boolean | null
           id?: number
           original_link?: string
           original_title?: string | null
@@ -208,24 +211,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      accept_invitation: {
-        Args: {
-          lookup_invitation_token: string
-        }
-        Returns: Json
-      }
       create_account: {
         Args: {
           slug?: string
           name?: string
-        }
-        Returns: Json
-      }
-      create_invitation: {
-        Args: {
-          account_id: string
-          account_role: "owner" | "member"
-          invitation_type: "one_time" | "24_hour"
         }
         Returns: Json
       }
@@ -241,12 +230,6 @@ export type Database = {
         }
         Returns: string
       }
-      delete_invitation: {
-        Args: {
-          invitation_id: string
-        }
-        Returns: undefined
-      }
       find_similar_news: {
         Args: {
           current_news_id: number
@@ -257,6 +240,7 @@ export type Database = {
           content: string | null
           created_at: string
           description: string | null
+          featured: boolean | null
           id: number
           original_link: string
           original_title: string | null
@@ -281,12 +265,6 @@ export type Database = {
         }
         Returns: Json
       }
-      get_account_billing_status: {
-        Args: {
-          account_id: string
-        }
-        Returns: Json
-      }
       get_account_by_slug: {
         Args: {
           slug: string
@@ -299,22 +277,6 @@ export type Database = {
         }
         Returns: string
       }
-      get_account_invitations: {
-        Args: {
-          account_id: string
-          results_limit?: number
-          results_offset?: number
-        }
-        Returns: Json
-      }
-      get_account_members: {
-        Args: {
-          account_id: string
-          results_limit?: number
-          results_offset?: number
-        }
-        Returns: Json
-      }
       get_accounts: {
         Args: Record<PropertyKey, never>
         Returns: Json
@@ -322,6 +284,25 @@ export type Database = {
       get_personal_account: {
         Args: Record<PropertyKey, never>
         Returns: Json
+      }
+      get_top_news_by_tags: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          category_id: number | null
+          content: string | null
+          created_at: string
+          description: string | null
+          featured: boolean | null
+          id: number
+          original_link: string
+          original_title: string | null
+          originalContent: string | null
+          originalPoster: string | null
+          slug: string | null
+          status: Database["public"]["Enums"]["news_status"]
+          thumbnail: string | null
+          title: string | null
+        }[]
       }
       get_top_tags: {
         Args: Record<PropertyKey, never>
@@ -331,12 +312,6 @@ export type Database = {
           slug: string
           tag_count: number
         }[]
-      }
-      lookup_invitation: {
-        Args: {
-          lookup_invitation_token: string
-        }
-        Returns: Json
       }
       remove_account_member: {
         Args: {
@@ -366,6 +341,7 @@ export type Database = {
           content: string | null
           created_at: string
           description: string | null
+          featured: boolean | null
           id: number
           original_link: string
           original_title: string | null
@@ -387,14 +363,6 @@ export type Database = {
           name: string
           slug: string | null
         }[]
-      }
-      service_role_upsert_customer_subscription: {
-        Args: {
-          account_id: string
-          customer?: Json
-          subscription?: Json
-        }
-        Returns: undefined
       }
       unaccent: {
         Args: {
@@ -426,6 +394,16 @@ export type Database = {
           make_primary_owner?: boolean
         }
         Returns: undefined
+      }
+      upsert_tags: {
+        Args: {
+          tag_names: string[]
+        }
+        Returns: {
+          id: number
+          name: string
+          status: string
+        }[]
       }
     }
     Enums: {

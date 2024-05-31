@@ -27,7 +27,7 @@ export default function NewsGrid({
   const [_page, setPage] = useState(page)
   const [loading, setLoading] = useState(false)
   const prevPage = usePrevious<number>(page)
-  const showPrevLoad = canLoadPrev && !prevPage
+  const [showPrevLoad, setShowPrevLoad] = useState(false)
 
   const createQueryString = useCallback(
     (name: string, value: string | number) => {
@@ -53,6 +53,9 @@ export default function NewsGrid({
 
   useEffect(() => {
     const handleScroll = () => {
+      if (window.scrollY === 0 && searchParams.get("page")) {
+        router.replace(pathname)
+      }
       if (
         canLoadMore &&
         window.innerHeight + window.scrollY >=
@@ -77,15 +80,17 @@ export default function NewsGrid({
         setItems([...items, ...news])
       } else {
         if (page > prevPage) {
-          console.log("dont here")
           setItems([...items, ...news])
         } else {
-          console.log("here")
           setItems([...news, ...items])
         }
       }
     }
   }, [news, page])
+
+  useEffect(() => {
+    setShowPrevLoad(canLoadPrev && !prevPage)
+  }, [])
 
   if (!items || items.length === 0) {
     return null
@@ -97,9 +102,8 @@ export default function NewsGrid({
         <Button
           className="w-full"
           onClick={() => {
-            router.push(pathname + "?" + createQueryString("page", 1), {
-              scroll: false,
-            })
+            router.push(pathname, { scroll: false })
+            setShowPrevLoad(false)
           }}
           variant="outline"
         >
@@ -110,15 +114,15 @@ export default function NewsGrid({
         {items.map((item) => (
           <NewsCard key={item.id} news={item} />
         ))}
+        {canLoadMore && (
+          <>
+            <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+            <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+            <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
+            <div className="h-[300px] w-full animate-pulse rounded-md bg-muted lg:block xl:hidden 2xl:block" />
+          </>
+        )}
       </div>
-      {canLoadMore && (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
-          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
-          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted" />
-          <div className="h-[300px] w-full animate-pulse rounded-md bg-muted lg:block xl:hidden 2xl:block" />
-        </div>
-      )}
     </>
   )
 }

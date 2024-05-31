@@ -9,14 +9,7 @@ import { timeFromNow } from "@/components/utils/date"
 import { Tables } from "../../../../types/supabase"
 import NewsImage from "./news-image"
 import { Skeleton } from "@/components/ui/skeleton"
-import dynamic from "next/dynamic"
-
-const NewsCardTime = dynamic(
-  () => import("@/components/appui/news/news-card-time"),
-  {
-    ssr: false,
-  }
-)
+import NewsCardTime from "./news-card-time"
 
 type NewsCardProps = {
   news: Tables<"news">
@@ -31,7 +24,7 @@ export default function NewsCard({ news }: NewsCardProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setFromNow(timeFromNow(news.created_at))
-    }, 10000)
+    }, 20000)
 
     return () => clearInterval(interval)
   }, [])

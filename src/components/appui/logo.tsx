@@ -1,20 +1,20 @@
 "use client"
 
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import logo from "./logo.png"
 import Link from "next/link"
 
 export default function SiteLogo() {
-  const searchParams = useSearchParams()
-
+  const router = useRouter()
   return (
     <Link
       href="/"
       className="mb-4 flex flex-col justify-center"
-      onClick={() => {
-        if (searchParams.get("page")) {
-          window.location.href = "/"
-        }
+      onClick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        router.push("/")
       }}
     >
       <img src={logo.src} />

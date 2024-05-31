@@ -1,7 +1,5 @@
 import "../globals.css"
 import { createClient } from "@/lib/supabase/server"
-import Link from "next/link"
-import { Badge } from "@/components/ui/badge"
 import dynamic from "next/dynamic"
 import SidebarCategories from "@/components/appui/sidebar/categories"
 import SiteLogo from "@/components/appui/logo"
@@ -26,7 +24,7 @@ export default async function RootLayout({
   return (
     <>
       <main className="flex flex-col md:flex-row">
-        <div className="p-4 space-y-4 md:w-72 md:border-l">
+        <div className="p-4 space-y-4 md:min-w-72 md:border-l">
           <div>
             <SiteLogo />
             <div className="mb-4 text-center text-gray-500 h-7">
@@ -42,7 +40,9 @@ export default async function RootLayout({
           </div>
           {categories && <SidebarCategories items={categories} />}
         </div>
-        <div className="flex-1 p-4 space-y-4">{children}</div>
+        <div className="p-4 space-y-4 flex flex-col overflow-hidden">
+          {children}
+        </div>
       </main>
       <footer className="flex border-t-2 py-4 mt-6">
         <div className="md:w-72  md:border-l"></div>
