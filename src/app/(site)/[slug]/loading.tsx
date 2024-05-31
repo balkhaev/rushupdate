@@ -38,7 +38,7 @@ export default function NewsItemLoading() {
         </div>
       </div>
       <div className="flex-1 space-y-6">
-        <div className="border-l pl-4 dark:border-gray-800">
+        <div className="border-l pl-4 dark:border-gray-800 space-y-1">
           {Array.from(Array(5).keys()).map((i) => (
             <div key={i} className="flex gap-5">
               <Skeleton className="h-[125px] w-[150px]" />
