@@ -230,6 +230,29 @@ export type Database = {
         }
         Returns: string
       }
+      find_related_tags_by_category_slug: {
+        Args: {
+          category_slug: string
+          limit_count?: number
+        }
+        Returns: {
+          created_at: string
+          id: number
+          name: string
+          slug: string | null
+        }[]
+      }
+      find_related_tags_last_24_hours: {
+        Args: {
+          target_tag: string
+        }
+        Returns: {
+          created_at: string
+          id: number
+          name: string
+          slug: string | null
+        }[]
+      }
       find_similar_news: {
         Args: {
           current_news_id: number
@@ -400,9 +423,10 @@ export type Database = {
           tag_names: string[]
         }
         Returns: {
+          created_at: string
           id: number
           name: string
-          status: string
+          slug: string | null
         }[]
       }
     }

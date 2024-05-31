@@ -1,5 +1,6 @@
 import { getNewsByTagSlug } from "@/api/news"
-import NewsGrid from "@/components/appui/news/news-grid"
+import { getRelatedTagsByTagSlug } from "@/api/tags"
+import TaxonomyPage from "@/components/appui/taxonomy/page"
 
 export type TagPageProps = {
   params: { slug: string }
@@ -8,14 +9,16 @@ export type TagPageProps = {
 
 export default async function TagPage({ params, searchParams }: TagPageProps) {
   const page = parseInt(searchParams?.page?.toString() || "1", 10)
-  const { news, canLoadMore } = await getNewsByTagSlug(params.slug, page)
+  const { news, tag, canLoadMore } = await getNewsByTagSlug(params.slug, page)
+  const relatedTags = await getRelatedTagsByTagSlug(params.slug)
 
   return (
-    <NewsGrid
-      page={page}
-      news={news}
+    <TaxonomyPage
+      title={tag?.name}
+      relatedTags={relatedTags}
       canLoadMore={canLoadMore}
-      canLoadPrev={page !== 1}
+      news={news}
+      page={page}
     />
   )
 }

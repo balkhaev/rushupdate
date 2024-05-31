@@ -1,5 +1,6 @@
+import { getRelatedTagsByCategorySlug } from "@/api/category"
 import { getNewsByCategorySlug } from "@/api/news"
-import NewsGrid from "@/components/appui/news/news-grid"
+import TaxonomyPage from "@/components/appui/taxonomy/page"
 
 export type CategoryPageProps = {
   params: { slug: string }
@@ -11,14 +12,19 @@ export default async function CategoryPage({
   searchParams,
 }: CategoryPageProps) {
   const page = parseInt(searchParams?.page?.toString() || "1", 10)
-  const { news, canLoadMore } = await getNewsByCategorySlug(params.slug, page)
+  const { news, category, canLoadMore } = await getNewsByCategorySlug(
+    params.slug,
+    page
+  )
+  const relatedTags = await getRelatedTagsByCategorySlug(params.slug)
 
   return (
-    <NewsGrid
-      page={page}
-      news={news}
+    <TaxonomyPage
+      title={category?.name}
+      relatedTags={relatedTags}
       canLoadMore={canLoadMore}
-      canLoadPrev={page !== 1}
+      news={news}
+      page={page}
     />
   )
 }

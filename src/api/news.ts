@@ -46,7 +46,7 @@ export async function getNewsByCategorySlug(categorySlug: string, page = 1) {
   const supabase = createClient()
   const { data: categoryData, error: categoryError } = await supabase
     .from("categories")
-    .select("id")
+    .select("id, name")
     .eq("slug", categorySlug)
     .single()
 
@@ -69,7 +69,11 @@ export async function getNewsByCategorySlug(categorySlug: string, page = 1) {
     return { news: [], canLoadMore: false }
   }
 
-  return { news, canLoadMore: !news || news.length + from > to }
+  return {
+    news,
+    category: categoryData,
+    canLoadMore: !news || news.length + from > to,
+  }
 }
 
 export async function getNewsByTagSlug(tagSlug: string, page = 1) {
@@ -78,7 +82,7 @@ export async function getNewsByTagSlug(tagSlug: string, page = 1) {
 
   const { data: tagData, error: tagError } = await supabase
     .from("tags")
-    .select("id")
+    .select("id, name")
     .eq("slug", tagSlug)
     .single()
 
@@ -120,7 +124,7 @@ export async function getNewsByTagSlug(tagSlug: string, page = 1) {
     return { news: [], canLoadMore: false }
   }
 
-  return { news, canLoadMore: !news || news.length + from > to }
+  return { news, tag: tagData, canLoadMore: !news || news.length + from > to }
 }
 
 export async function getSimilarNews(newsId?: number) {

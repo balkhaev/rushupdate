@@ -18,7 +18,7 @@ export type NewsItemPageProps = {
 export default async function NewsItemPage({ params }: NewsItemPageProps) {
   const newsItem = await getNewsBySlug(params.slug)
   const similarNews = await getSimilarNews(newsItem?.id)
-  const lastNews = await getNews(0, 5)
+  const lastNews = await getNews(0, 4)
 
   if (!newsItem) {
     return "not found :("

@@ -1,5 +1,5 @@
-import NewsGridSkeleton from "@/components/appui/news/news-list-skeleton"
+import TaxonomyLoading from "@/components/appui/taxonomy/loading"
 
 export default function TagLoading() {
-  return <NewsGridSkeleton />
+  return <TaxonomyLoading />
 }
