@@ -19,8 +19,8 @@ export default function TaxonomyPage({
 }: Props) {
   return (
     <>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl capitalize">
-        {title}
+      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+        Новости по теме - <span className="capitalize">{title}</span>
       </h1>
       {relatedTags && (
         <div className="flex flex-wrap gap-2">

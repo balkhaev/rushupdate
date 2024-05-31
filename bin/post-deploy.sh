@@ -5,6 +5,10 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 . ./.env
 
-sh ./bin/install.sh
-
-npm run pm2:prod
+# Execute install script and check for errors
+if sh ./bin/install.sh; then
+  npm run pm2:prod
+else
+  echo "Installation script failed. Aborting."
+  exit 1
+fi
