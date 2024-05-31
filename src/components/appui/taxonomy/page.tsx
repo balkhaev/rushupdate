@@ -20,7 +20,7 @@ export default function TaxonomyPage({
   return (
     <>
       <div>
-        <div className="text-gray-400">Новости по теме</div>
+        <h3 className="text-gray-400">Новости по теме</h3>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           <span className="capitalize">{title}</span>
         </h1>
