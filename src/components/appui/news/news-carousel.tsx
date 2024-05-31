@@ -20,7 +20,7 @@ type Props = {
 export function NewsCarousel({ news }: Props) {
   return (
     <div className="px-12">
-      <div className="text-2xl font-bold mb-4">Важные новости</div>
+      <div className="text-2xl font-bold mb-4">Главное</div>
       <Carousel className="w-full" opts={{ slidesToScroll: 3 }}>
         <CarouselContent>
           {news.map((newsItem, index) => (
