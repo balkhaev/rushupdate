@@ -3,8 +3,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function NewsItemLoading() {
   return (
     <>
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-5">
         <Skeleton className="h-[130px] w-full rounded-xl" />
+        <Skeleton className="h-[20px] w-[200px]" />
         <div className="flex gap-2">
           <Skeleton className="h-[20px] flex-1" />
           <Skeleton className="h-[20px] flex-1" />

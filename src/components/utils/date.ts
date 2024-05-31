@@ -8,3 +8,7 @@ dayjs.extend(relativeTime)
 export function timeFromNow(time: ConfigType) {
   return dayjs(time).subtract(50, "seconds").fromNow()
 }
+
+export function formatDate(time: ConfigType) {
+  return dayjs(time).format("DD.MM.YYYY HH:mm")
+}

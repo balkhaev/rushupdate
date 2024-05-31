@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link"
 import { Tables } from "../../../../types/supabase"
+import { formatDate, timeFromNow } from "@/components/utils/date"
 
 const isDev = process.env.NODE_ENV === "development"
 
@@ -44,6 +45,11 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {newsItem.title}
           </h1>
+          <time className="text-gray-400 mt-3 block">
+            {`${timeFromNow(newsItem.created_at)} (${formatDate(
+              newsItem.created_at
+            )})`}
+          </time>
           <div className="flex gap-1 flex-wrap">
             <Taxonomy
               category={newsItem.category_id as unknown as Tables<"categories">}
