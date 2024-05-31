@@ -14,7 +14,7 @@ export default function SiteLogo() {
         e.preventDefault()
         e.stopPropagation()
 
-        router.push("/")
+        window.location.href = "/"
       }}
     >
       <img src={logo.src} />
