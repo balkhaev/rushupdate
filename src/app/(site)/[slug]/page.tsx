@@ -77,13 +77,13 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
       <div className="flex-1 space-y-12">
         {similarNews && similarNews.length > 0 && (
           <div className="border-l dark:border-gray-800 pl-4">
-            <div className="text-lg font-bold mb-2">Похожее</div>
+            <h3 className="text-lg font-bold mb-2">Похожие новости</h3>
             <NewsList news={similarNews} />
           </div>
         )}
         {lastNews && lastNews.length > 0 && (
           <div className="border-l dark:border-gray-800 pl-4">
-            <div className="text-lg font-bold mb-2">Последние новости</div>
+            <h3 className="text-lg font-bold mb-2">Последние новости</h3>
             <NewsList news={lastNews} />
           </div>
         )}

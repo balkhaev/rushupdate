@@ -13,9 +13,9 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Последние актуальные новости",
-  description: "Читайте самые актуальные новости на текущий день",
-  "yandex-verification": "5ed3239700237518",
+  title: "Актуальные новости и события в России и мире / rushupdate.com",
+  description:
+    "Читайте самые актуальные новости на текущий день на сайте rushupdate.com",
 }
 
 export default function RootLayout({
