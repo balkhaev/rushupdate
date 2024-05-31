@@ -7,7 +7,7 @@ type Props = {
 
 export default function NewsList({ news }: Props) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-1">
       {news.map((news) => (
         <NewsListItem key={news.id} news={news} />
       ))}
