@@ -21,7 +21,7 @@ export function NewsCarousel({ news }: Props) {
   return (
     <div className="px-12">
       <div className="text-2xl font-bold mb-4">Главное</div>
-      <Carousel className="w-full" opts={{ slidesToScroll: 3 }}>
+      <Carousel className="w-full" opts={{ slidesToScroll: "auto" }}>
         <CarouselContent>
           {news.map((newsItem, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
