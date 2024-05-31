@@ -19,9 +19,12 @@ export default function TaxonomyPage({
 }: Props) {
   return (
     <>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-        Новости по теме - <span className="capitalize">{title}</span>
-      </h1>
+      <div>
+        <div className="text-gray-400">Новости по теме</div>
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <span className="capitalize">{title}</span>
+        </h1>
+      </div>
       {relatedTags && (
         <div className="flex flex-wrap gap-2">
           <TagsList tags={relatedTags} />
