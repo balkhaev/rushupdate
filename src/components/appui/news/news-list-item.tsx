@@ -32,21 +32,18 @@ export default function NewsListItem({ news }: NewsCardProps) {
   }, [])
 
   return (
-    <Card className="border-0 relative flex">
+    <div className="border-0 relative flex">
       {loading && <BorderBeam />}
-      <Link className="w-[150px]" href={link} onClick={() => setLoading(true)}>
+      <Link href={link} onClick={() => setLoading(true)}>
         <NewsImage
           alt={`Изображение к новости "${news.title}"`}
-          className="rounded-t-md object-cover"
+          className="rounded-md object-cover"
           src={srcUrl}
-          style={{
-            aspectRatio: "1.2/1",
-            objectFit: "cover",
-          }}
-          width="100%"
+          width="130px"
+          height="100px"
         />
       </Link>
-      <CardContent className="flex-1 px-4 space-y-2">
+      <div className="flex-1 px-4 space-y-2">
         <Link href={link} onClick={() => setLoading(true)}>
           <h3 className="font-bold text-base">{news.title}</h3>
         </Link>
@@ -61,7 +58,7 @@ export default function NewsListItem({ news }: NewsCardProps) {
           </Link>
           <div className="text-gray-500">{fromNow}</div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

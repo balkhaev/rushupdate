@@ -1,5 +1,5 @@
 import { createComment } from "@/api/comments"
-import { getNewsBySlug, getSimilarNews } from "@/api/news"
+import { getNewsBySlug, getSimilarNews, getNews } from "@/api/news"
 import CommentsForm from "@/components/appui/comments/comments-form"
 import NewsImage from "@/components/appui/news/news-image"
 import NewsList from "@/components/appui/news/news-list"
@@ -18,6 +18,7 @@ export type NewsItemPageProps = {
 export default async function NewsItemPage({ params }: NewsItemPageProps) {
   const newsItem = await getNewsBySlug(params.slug)
   const similarNews = await getSimilarNews(newsItem?.id)
+  const lastNews = await getNews(0, 5)
 
   if (!newsItem) {
     return "not found :("
@@ -73,10 +74,19 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
           onCommentCreate={onCommentCreate}
         />
       </div>
-      <div className="flex-1 space-y-6">
-        <div className="border-l dark:border-gray-800 pl-4">
-          {similarNews && <NewsList news={similarNews} />}
-        </div>
+      <div className="flex-1 space-y-12">
+        {similarNews && similarNews.length > 0 && (
+          <div className="border-l dark:border-gray-800 pl-4">
+            <div className="text-lg font-bold mb-2">Похожее</div>
+            <NewsList news={similarNews} />
+          </div>
+        )}
+        {lastNews && lastNews.length > 0 && (
+          <div className="border-l dark:border-gray-800 pl-4">
+            <div className="text-lg font-bold mb-2">Последние новости</div>
+            <NewsList news={lastNews} />
+          </div>
+        )}
       </div>
       {isDev && (
         <div className="flex-1 space-y-6">

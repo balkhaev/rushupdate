@@ -16,6 +16,7 @@ type Props = {
   style?: CSSProperties
   className?: string
   width?: string
+  height?: string
   src?: string | null
   loading?: ReactNode
   alt?: string
@@ -28,6 +29,8 @@ export default function NewsImage({
   className,
   loading,
   onLoad,
+  width,
+  height,
   src,
   ...props
 }: Props) {
@@ -45,7 +48,10 @@ export default function NewsImage({
   }, [])
 
   return (
-    <div className={cn(absolute && "relative")} style={{ aspectRatio }}>
+    <div
+      className={cn("flex", absolute && "relative")}
+      style={{ aspectRatio, width, height }}
+    >
       <img
         className={cn(
           "object-cover w-full",
@@ -57,6 +63,8 @@ export default function NewsImage({
         onLoad={onLoadCallBack}
         src={haveImage ? src : placeholderImage.src}
         style={{ aspectRatio }}
+        width={width}
+        height={height}
         {...props}
       />
       {!isImageReady && loading}

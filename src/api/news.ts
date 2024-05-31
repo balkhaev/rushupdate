@@ -9,16 +9,21 @@ const getPagination = (page: number, size = NEWS_PER_PAGE) => {
   return { from, to }
 }
 
-export async function getNews(page = 1) {
-  const { from, to } = getPagination(page)
+export async function getNews(from = 0, to = 999999) {
   const supabase = createClient()
-
-  const { data: news, error } = await supabase
+  const { data } = await supabase
     .from("news")
     .select()
     .eq("status", "published")
     .range(from, to)
     .order("created_at", { ascending: false })
+
+  return data
+}
+
+export async function getNewsPaginated(page = 1) {
+  const { from, to } = getPagination(page)
+  const news = await getNews(from, to)
 
   return { news, canLoadMore: !news || news.length + from > to }
 }
