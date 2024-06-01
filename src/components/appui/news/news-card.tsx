@@ -18,7 +18,7 @@ type NewsCardProps = {
 export default function NewsCard({ news }: NewsCardProps) {
   const [loading, setLoading] = useState(false)
   const [fromNow, setFromNow] = useState(timeFromNow(news?.created_at))
-  const srcUrl = news.thumbnail ?? news.originalPoster
+  const srcUrl = news.thumbnail ?? news.poster
   const link = `/${news.slug}`
 
   useEffect(() => {

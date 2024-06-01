@@ -4,13 +4,9 @@ import CommentsForm from "@/components/appui/comments/comments-form"
 import NewsImage from "@/components/appui/news/news-image"
 import NewsList from "@/components/appui/news/news-list"
 import Taxonomy from "@/components/appui/taxonomy"
-import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
-import Link from "next/link"
 import { Tables } from "../../../../types/supabase"
 import { formatDate, timeFromNow } from "@/components/utils/date"
-
-const isDev = process.env.NODE_ENV === "development"
 
 export type NewsItemPageProps = {
   params: { slug: string }
@@ -56,12 +52,12 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
               tags={newsItem.tags}
             />
           </div>
-          {newsItem.originalPoster && (
+          {newsItem.poster && (
             <div className="pt-4">
               <NewsImage
                 alt={`Изображение к новости "${newsItem.title}"`}
                 className="rounded-t-md object-cover"
-                src={newsItem.originalPoster}
+                src={newsItem.poster}
                 width="100%"
                 loading={<Skeleton className="h-[450px] w-full" />}
               />
@@ -94,20 +90,6 @@ export default async function NewsItemPage({ params }: NewsItemPageProps) {
           </div>
         )}
       </div>
-      {isDev && (
-        <div className="flex-1 space-y-6">
-          <div className="space-y-4 border-l pl-6 dark:border-gray-800">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                {newsItem.original_title}
-              </h1>
-            </div>
-            <div className="prose prose-stone dark:prose-invert whitespace-pre-line">
-              {newsItem.originalContent}
-            </div>
-          </div>
-        </div>
-      )}
     </>
   )
 }

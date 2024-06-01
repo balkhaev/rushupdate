@@ -60,12 +60,9 @@ export type Database = {
           content: string | null
           created_at: string
           description: string | null
-          featured: boolean | null
           id: number
-          original_link: string
-          original_title: string | null
-          originalContent: string | null
-          originalPoster: string | null
+          medium: string | null
+          poster: string | null
           slug: string | null
           status: Database["public"]["Enums"]["news_status"]
           thumbnail: string | null
@@ -76,12 +73,9 @@ export type Database = {
           content?: string | null
           created_at?: string
           description?: string | null
-          featured?: boolean | null
           id?: number
-          original_link: string
-          original_title?: string | null
-          originalContent?: string | null
-          originalPoster?: string | null
+          medium?: string | null
+          poster?: string | null
           slug?: string | null
           status?: Database["public"]["Enums"]["news_status"]
           thumbnail?: string | null
@@ -92,12 +86,9 @@ export type Database = {
           content?: string | null
           created_at?: string
           description?: string | null
-          featured?: boolean | null
           id?: number
-          original_link?: string
-          original_title?: string | null
-          originalContent?: string | null
-          originalPoster?: string | null
+          medium?: string | null
+          poster?: string | null
           slug?: string | null
           status?: Database["public"]["Enums"]["news_status"]
           thumbnail?: string | null
@@ -149,6 +140,38 @@ export type Database = {
           },
         ]
       }
+      news_media: {
+        Row: {
+          created_at: string
+          id: number
+          news_id: number | null
+          type: string | null
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          news_id?: number | null
+          type?: string | null
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          news_id?: number | null
+          type?: string | null
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "news_media_news_id_fkey"
+            columns: ["news_id"]
+            isOneToOne: false
+            referencedRelation: "news"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       news_tags: {
         Row: {
           created_at: string
@@ -184,6 +207,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      parsed_news: {
+        Row: {
+          content: string
+          created_at: string
+          id: number
+          poster: string | null
+          source: string
+          thumbnail: string | null
+          title: string
+          url: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: number
+          poster?: string | null
+          source: string
+          thumbnail?: string | null
+          title: string
+          url: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: number
+          poster?: string | null
+          source?: string
+          thumbnail?: string | null
+          title?: string
+          url?: string
+        }
+        Relationships: []
       }
       tags: {
         Row: {
@@ -263,12 +319,9 @@ export type Database = {
           content: string | null
           created_at: string
           description: string | null
-          featured: boolean | null
           id: number
-          original_link: string
-          original_title: string | null
-          originalContent: string | null
-          originalPoster: string | null
+          medium: string | null
+          poster: string | null
           slug: string | null
           status: Database["public"]["Enums"]["news_status"]
           thumbnail: string | null
@@ -304,6 +357,12 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: Json
       }
+      get_news_layout: {
+        Args: {
+          limit_news?: number
+        }
+        Returns: Json
+      }
       get_personal_account: {
         Args: Record<PropertyKey, never>
         Returns: Json
@@ -315,12 +374,9 @@ export type Database = {
           content: string | null
           created_at: string
           description: string | null
-          featured: boolean | null
           id: number
-          original_link: string
-          original_title: string | null
-          originalContent: string | null
-          originalPoster: string | null
+          medium: string | null
+          poster: string | null
           slug: string | null
           status: Database["public"]["Enums"]["news_status"]
           thumbnail: string | null
@@ -364,16 +420,28 @@ export type Database = {
           content: string | null
           created_at: string
           description: string | null
-          featured: boolean | null
           id: number
-          original_link: string
-          original_title: string | null
-          originalContent: string | null
-          originalPoster: string | null
+          medium: string | null
+          poster: string | null
           slug: string | null
           status: Database["public"]["Enums"]["news_status"]
           thumbnail: string | null
           title: string | null
+        }[]
+      }
+      search_parsed_news: {
+        Args: {
+          search_text: string
+        }
+        Returns: {
+          content: string
+          created_at: string
+          id: number
+          poster: string | null
+          source: string
+          thumbnail: string | null
+          title: string
+          url: string
         }[]
       }
       search_tag_by_name: {
