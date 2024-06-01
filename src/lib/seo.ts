@@ -13,13 +13,13 @@ export async function generateSeoMetadata(slug: string): Promise<Metadata> {
       title: data?.title || "Новость",
       description: data?.description || "Новость",
       url: "https://rushupdate.com/" + slug,
-      images: data?.originalPoster || [],
+      images: data?.poster || [],
     },
     twitter: {
       title: data?.title || "Новость",
       description: data?.description || "Новость",
       site: "https://rushupdate.com/",
-      images: data?.originalPoster || [],
+      images: data?.poster || [],
     },
   }
 }
