@@ -29,6 +29,14 @@ export default function RootLayout({
       <Suspense>
         <Metrika />
       </Suspense>
+      <Suspense>
+        <script
+          async
+          src="http://ackee.balkhaev.ru/tracker.js"
+          data-ackee-server="http://ackee.balkhaev.ru"
+          data-ackee-domain-id="a262d4f0-a50c-42b4-bf16-2d9253655f35"
+        ></script>
+      </Suspense>
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
