@@ -33,7 +33,7 @@ export default function RootLayout({
         <script
           async
           src="https://ackee.balkhaev.ru/tracker.js"
-          data-ackee-server="http://ackee.balkhaev.ru"
+          data-ackee-server="https://ackee.balkhaev.ru"
           data-ackee-domain-id="a262d4f0-a50c-42b4-bf16-2d9253655f35"
         ></script>
       </Suspense>
